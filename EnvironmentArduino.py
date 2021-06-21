@@ -13,13 +13,19 @@ class EnvironmentArduino(Device):
                          dtype=float,
                          access=AttrWriteType.READ,
                          unit='%',
-                         format='6.1f')
+                         format='4.1f')
 
     temperature = attribute(label='Temperature',
                             dtype=float,
                             access=AttrWriteType.READ,
                             unit='C',
-                            format="6.1f",)
+                            format="4.1f",)
+
+    rate = attribute(label='Rate',
+                            dtype=float,
+                            access=AttrWriteType.READ,
+                            unit='Hz',
+                            format="4.1f",)
 
     def init_device(self):
         Device.init_device(self)
@@ -47,6 +53,9 @@ class EnvironmentArduino(Device):
 
     def read_temperature(self):
         return float(self.query('t'))
+
+    def read_rate(self):
+        return float(self.query('r'))
 
     def query(self, cmd):
         cmd_str = '{:s}\r\n'.format(cmd)
